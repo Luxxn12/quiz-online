@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import Question from './Question';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Question from "./Question";
+import { useNavigate } from "react-router-dom";
 
 const Quiz = () => {
   const [questions, setQuestions] = useState([]);
@@ -11,26 +11,27 @@ const Quiz = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const savedQuiz = JSON.parse(localStorage.getItem('quiz'));
+    const savedQuiz = JSON.parse(localStorage.getItem("quiz"));
     if (savedQuiz) {
       setQuestions(savedQuiz.questions);
       setCurrentQ(savedQuiz.currentQ);
       setAnswers(savedQuiz.answers);
       setTimer(savedQuiz.timer);
     } else {
-      axios.get('https://opentdb.com/api.php?amount=10')
-        .then(response => {
+      axios
+        .get("https://opentdb.com/api.php?amount=10")
+        .then((response) => {
           setQuestions(response.data.results);
         })
-        .catch(error => {
-          console.error('Error fetching questions:', error);
+        .catch((error) => {
+          console.error("Error fetching questions:", error);
         });
     }
   }, []);
 
   useEffect(() => {
     const countdown = setInterval(() => {
-      setTimer(prev => {
+      setTimer((prev) => {
         if (prev <= 1) {
           clearInterval(countdown);
           handleSubmit();
@@ -44,7 +45,10 @@ const Quiz = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('quiz', JSON.stringify({ questions, currentQ, answers, timer }));
+    localStorage.setItem(
+      "quiz",
+      JSON.stringify({ questions, currentQ, answers, timer })
+    );
   }, [questions, currentQ, answers, timer]);
 
   const handleAnswer = (answer) => {
@@ -57,22 +61,29 @@ const Quiz = () => {
   };
 
   const handleSubmit = () => {
-    navigate('/result', { state: { answers, questions } });
-    localStorage.removeItem('quiz');
+    navigate("/result", { state: { answers, questions } });
+    localStorage.removeItem("quiz");
   };
 
-  if (questions.length === 0) return <div className='flex items-center justify-center h-screen'><h1 className="visually-hidden">LOADING...</h1></div>;
+  if (questions.length === 0)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <h1 className="visually-hidden">LOADING...</h1>
+      </div>
+    );
 
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between mb-4">
-        <div>Soal {currentQ + 1} dari {questions.length}</div>
-        <div>Waktu tersisa: {Math.floor(timer / 60)}:{('0' + (timer % 60)).slice(-2)}</div>
+        <div>
+          Soal {currentQ + 1} dari {questions.length}
+        </div>
+        <div>
+          Waktu tersisa: {Math.floor(timer / 60)}:
+          {("0" + (timer % 60)).slice(-2)}
+        </div>
       </div>
-      <Question
-        data={questions[currentQ]}
-        handleAnswer={handleAnswer}
-      />
+      <Question data={questions[currentQ]} handleAnswer={handleAnswer} />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Result = () => {
   const location = useLocation();
@@ -21,17 +21,22 @@ const Result = () => {
   });
 
   const handleRestart = () => {
-    navigate('/quiz');
+    navigate("/quiz");
   };
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div  className="p-6 bg-white w-96 rounded shadow-md text-center">
-      <h2 className="mb-4 text-2xl font-bold">Hasil Kuis</h2>
-      <p className="mb-2">Total Jawaban: {questions.length}</p>
-      <p className="mb-2 text-green-600">Benar: {correct}</p>
-      <p className="mb-4 text-red-600">Salah: {wrong}</p>
-      <button onClick={handleRestart} className="px-4 py-2 text-white bg-blue-500 rounded">Mulai Lagi</button>
+      <div className="p-6 bg-white w-96 rounded shadow-md text-center">
+        <h2 className="mb-4 text-2xl font-bold">Hasil Kuis</h2>
+        <p className="mb-2">Total Jawaban: {questions.length}</p>
+        <p className="mb-2 text-green-600">Benar: {correct}</p>
+        <p className="mb-4 text-red-600">Salah: {wrong}</p>
+        <button
+          onClick={handleRestart}
+          className="px-4 py-2 text-white bg-blue-500 rounded"
+        >
+          Mulai Lagi
+        </button>
       </div>
     </div>
   );

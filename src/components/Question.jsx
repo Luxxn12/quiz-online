@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const decodeHtml = (html) => {
   var txt = document.createElement("textarea");
@@ -18,7 +18,9 @@ const Question = ({ data, handleAnswer }) => {
 
   return (
     <div className="p-4 bg-gray-100 rounded shadow-md">
-      <h3 className="mb-4 text-lg font-semibold">{decodeHtml(data.question)}</h3>
+      <h3 className="mb-4 text-lg font-semibold">
+        {decodeHtml(data.question)}
+      </h3>
       <div className="options">
         {options.map((option, index) => (
           <button
